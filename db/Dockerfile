@@ -8,7 +8,7 @@ RUN apt-get update \
     && curl -L http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xjf - \
     && cd scws-1.2.2  && ./configure  && make install \
     && cd ../ && rm -rf scws-1.2.2 \
-    && curl -L --silent --show-error --retry 10 https://github.com/amutu/zhparser/archive/de966445dab64b91378527219988f36107b7b2e8.zip | unzip - \  
+    && curl -L --silent --show-error --retry 10 https://github.com/amutu/zhparser/archive/de966445dab64b91378527219988f36107b7b2e8.zip | unzip \  
     && cd zhparser-de966445dab64b91378527219988f36107b7b2e8 \
     && SCWS_HOME=/usr/local make && make install \
     && cd ../ && rm -rf zhparser-de966445dab64b91378527219988f36107b7b2e8 \
