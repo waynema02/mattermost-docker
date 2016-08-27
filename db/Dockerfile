@@ -5,8 +5,8 @@ RUN apt-get update \
     && curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python \
     && pip install wal-e
 
-RUN curl -L http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xjf - \
-    && cd scws-1.2.2 \
+RUN curl -L http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xjf - 
+RUN cd scws-1.2.2 \
     && ./configure \
     && make install
 
