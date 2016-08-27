@@ -10,7 +10,7 @@ RUN curl -L http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xjf - \
     && ./configure \
     && make install
 
-RUN apt-get install --yes postgresql-server-dev-9.4 libpq-dev
+RUN apt-get install --yes postgresql-server-dev-9.4 libpq-dev unzip
 
 RUN curl -L https://github.com/amutu/zhparser/archive/de966445dab64b91378527219988f36107b7b2e8.zip | unzip - 
 RUN cd zhparser-de966445dab64b91378527219988f36107b7b2e8 \
