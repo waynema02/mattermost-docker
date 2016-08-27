@@ -17,7 +17,7 @@ RUN apt-get update \
     && PGDATA=/var/lib/postgresql/data sudo -E -u postgres /usr/lib/postgresql/9.4/bin/psql mattermost -c 'CREATE EXTENSION zhparser'
     && PGDATA=/var/lib/postgresql/data sudo -E -u postgres /usr/lib/postgresql/9.4/bin/psql mattermost -c 'CREATE TEXT SEARCH CONFIGURATION simple_zh_cfg (PARSER = zhparser);'
     && PGDATA=/var/lib/postgresql/data sudo -E -u postgres /usr/lib/postgresql/9.4/bin/psql mattermost -c 'ALTER TEXT SEARCH CONFIGURATION simple_zh_cfg ADD MAPPING FOR n,v,a,i,e,l WITH simple;'
-    && cd /var/lib/postgresql/ \
+    && cd /var/lib/postgresql/data/ \
     && sed -i "s/default_text_search_config = 'pg_catalog.english'/default_text_search_config = 'simple_zh_cfg'/" postgresql.conf
     && PGDATA=/var/lib/postgresql/data sudo -E -u postgres /usr/lib/postgresql/9.4/bin/pg_ctl reload
     && apt-get remove -y build-essential python-dev \
