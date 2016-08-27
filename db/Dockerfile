@@ -1,17 +1,21 @@
 FROM postgres:9.4
 
+SCWS_VERSION=1.2.2
+ZHPARSER_VERSION=de966445dab64b91378527219988f36107b7b2e8
+
 RUN apt-get update \
     && apt-get install -y python-dev lzop pv daemontools curl build-essential \
     && apt-get install --yes postgresql-server-dev-9.4 libpq-dev unzip \
     && curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | python \
     && pip install wal-e \
-    && curl -L http://www.xunsearch.com/scws/down/scws-1.2.2.tar.bz2 | tar xjf - \
-    && cd scws-1.2.2  && ./configure  && make install \
-    && cd ../ && rm -rf scws-1.2.2 \
-    && curl -L --silent --show-error --retry 10 https://github.com/amutu/zhparser/archive/de966445dab64b91378527219988f36107b7b2e8.zip | unzip \  
-    && cd zhparser-de966445dab64b91378527219988f36107b7b2e8 \
+    && curl -L http://www.xunsearch.com/scws/down/scws-$(SCWS_VERSION).tar.bz2 | tar xjf - \
+    && cd scws-$(SCWS_VERSION)  && ./configure  && make install \
+    && cd ../ && rm -rf scws-$(SCWS_VERSION) \
+    && curl -L --silent --show-error --retry 10 https://github.com/amutu/zhparser/archive/$(ZHPARSER_VERSION).zip > temp.zip \
+    && unzip temp.zip && rm temp.zip \  
+    && cd zhparser-$(ZHPARSER_VERSION) \
     && SCWS_HOME=/usr/local make && make install \
-    && cd ../ && rm -rf zhparser-de966445dab64b91378527219988f36107b7b2e8 \
+    && cd ../ && rm -rf zhparser-$(ZHPARSER_VERSION) \
     && apt-get remove -y build-essential python-dev \
     && apt-get autoremove -y \
     && apt-get clean \
